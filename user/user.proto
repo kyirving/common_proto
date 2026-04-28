@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+message LoginReq {
+  string username = 1;
+  string password = 2;
+}
+
+message RegisterReq {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResp {
+  int64 user_id = 1;
+  string token = 2;
+  int64 expire = 3;
+  string refresh_token = 4;
+  int64 refresh_expire = 5;
+}
+
+
+message LogoutReq {}
+message RefreshTokenReq {}
+
+message EmptyResp {}
+
+service User {
+  rpc Login(LoginReq) returns(LoginResp);
+  rpc Register(RegisterReq) returns(EmptyResp);
+  rpc Logout(LogoutReq) returns(EmptyResp);
+  rpc RefreshToken(RefreshTokenReq) returns(LoginResp);
+}
